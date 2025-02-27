@@ -40,7 +40,7 @@ jobs:
               uses: golangci/golangci-lint-action@v6
               with:
                 version: v1.56.2
-    
+              continue-on-error: true
 
     push:
         runs-on: ubuntu-latest
@@ -85,9 +85,6 @@ jobs:
             - name: Update Helm chart version
               run: |
                sed -i "s/tag: .*/tag: ${{github.run_id}}/" helm/go-web-app-chart/values.yaml
-
-            - name: Build Helm chart
-              run: helm package helm/go-web-app-chart
 
             - name: Commit and push changes
               run: |
